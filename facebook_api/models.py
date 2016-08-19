@@ -66,11 +66,13 @@ class FacebookGraphManager(models.Manager):
         """
         Return object by url
         """
-        m = re.findall(r'(?:https?://)?(?:www\.)?facebook\.com/(.+)/?', url)
-        if not len(m):
-            raise ValueError("Url should be started with http://facebook.com/")
 
-        return self.get_by_slug(m[0])
+        if re.match(r'(?:https?://)?(?:www\.)?facebook\.com/(.+)/?', url):
+            page = self.get(url)
+            if page.link != '':
+                return page
+
+        raise ValueError("Url should be valid Facebook Page")
 
     def get_by_slug(self, slug):
         """
