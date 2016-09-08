@@ -79,9 +79,6 @@ class ActionableModelMixin(models.Model):
             self.actions_count += getattr(self, '{0}s_count'.format(reaction), None)
 
 
-        super(ActionableModelMixin, self).save(*args, **kwargs)
-
-
 class LikableModelMixin(models.Model):
     likes_users = ManyToManyHistoryField(User, related_name='like_%(class)ss')
     likes_count = models.PositiveIntegerField(null=True, help_text='The number of likes of this item')
