@@ -72,8 +72,6 @@ class FacebookGraphManager(models.Manager):
 
         return self.get_by_slug(m[0])
 
-        raise ValueError("Url should be valid Facebook Page")
-
     def get_by_slug(self, slug):
         """
         Return object by slug
