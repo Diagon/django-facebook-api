@@ -73,7 +73,11 @@ class ActionableModelMixin(models.Model):
 
     def save(self, *args, **kwargs):
         self.actions_count = sum([getattr(self, field, None) or 0
-                                  for field in ['likes_count', 'shares_count', 'comments_count', 'reactions_count']])
+                                  for field in ['likes_count', 'shares_count', 'comments_count']])
+
+        for reaction in ['love', 'wow', 'haha', 'sad', 'angry', 'thankful']:
+            self.actions_count += getattr(self, '{0}s_count'.format(reaction), None)
+
 
         super(ActionableModelMixin, self).save(*args, **kwargs)
 
